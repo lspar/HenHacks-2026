@@ -47,3 +47,7 @@ def login():
 if __name__ == "__main__":
    app.run(port=5000, debug=True)
 
+@app.route("/new-app")
+def new_app():
+    return render_template("new.html")
+

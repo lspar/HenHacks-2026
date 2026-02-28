@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <style>
+        body {
+            text-align: center;
+            background-color: #BDD5EA;
+        }
+        .IASSO {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 60px;
+        }
+        .new-app {
+            border: 2px solid gray;     /* adds a border */
+            padding: 10px;              /* space inside the box */
+            width: 800px;               /* box width */
+            margin: 50px auto;          /* centers box horizontally */
+            border-radius: 10px;        /* optional: rounded corners */
+            text-align: center;         /* centers text inside box */
+            background-color: #D0DEF1; /* optional: light background */
+        }
+        .new-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        .input {
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+            margin: 20px auto;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .input label {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .input input {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid gray;
+            font-size: 14px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 8px;
+            border: none;
+            background-color: #4A6FA5;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3a5a87;
+        }
+    </style>
+</head>
+<body>
+
+<h1 class= "IASSO">IASSO</h1>
+<div class= "new-app">
+    <h2 class="new-title">New Application</h2>
+
+    <p> Fill out the details below, so we can keep track of your applications! </p>
+    <div class="input">
+        <label for="Company Name">Company Name:</label>
+        <input type="text" id="Company_Name" name="Company_Name">
+
+        <label for="Title">Title:</label>
+        <input type="text" id="Title" name="Title">
+
+        <label for="Recruiter Names">Recruiter Names:</label>
+        <input type="text" id="Recruiter_Names" name="Recruiter_Names">
+    </div>
+    <button>Submit</button>
+</div>
+</body>
+</html>
