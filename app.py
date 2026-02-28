@@ -51,3 +51,7 @@ if __name__ == "__main__":
 def new_app():
     return render_template("new.html")
 
+@app.route("/settings")
+def settings():
+    return render_template("settings.html")
+

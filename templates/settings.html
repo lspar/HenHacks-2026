@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <style>
+        body {
+            text-align: center;
+            background-color: #BDD5EA;
+        }
+        .IASSO {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 60px;
+        }
+        .new-app {
+            border: 2px solid gray;     /* adds a border */
+            padding: 10px;              /* space inside the box */
+            width: 800px;               /* box width */
+            margin: 50px auto;          /* centers box horizontally */
+            border-radius: 10px;        /* optional: rounded corners */
+            text-align: center;         /* centers text inside box */
+            background-color: #D0DEF1; /* optional: light background */
+        }
+        .new-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        .input {
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+            margin: 20px auto;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .input label {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .input input {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid gray;
+            font-size: 14px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 8px;
+            border: none;
+            background-color: #4A6FA5;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3a5a87;
+        }
+        
+    </style>
+</head>
+<body>
+
+<h1 class= "IASSO">IASSO</h1>
+<div class= "settings">
+    <h2 class="settings-title">Settings</h2>
+
+    <p> Fill out the pedeailt of your preferred intership, so we can sort them in order of most interest!</p>
+    <div class="input">
+        <label for="Zip Code">Zip Code:</label>
+        <input type="text" id="zip_code" name="zip_code">
+
+        <label for="Distance">Distance:</label>
+        <input type="text" id="distance" name="distance">
+
+        <label for="location-select">Location:</label>
+        <select name="location" id="location-select">
+            <option value="">--Please choose an option--</option>
+            <option value="In-Person">In-Person</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="Remote">Remote</option>
+        </select>
+
+    </div>
+    <button>Submit</button>
+</div>
+</body>
+</html>
