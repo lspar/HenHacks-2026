@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        .dashboard {
+            border: 2px solid gray;     /* adds a border */
+            padding: 10px;              /* space inside the box */
+            width: 800px;               /* box width */
+            margin: 50px auto;          /* centers box horizontally */
+            border-radius: 10px;        /* optional: rounded corners */
+            text-align: center;         /* centers text inside box */
+            background-color: #f9f9f9; /* optional: light background */
+        }
+        .dashboard-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+         .dashboard-cards {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 300px;
+            border-radius: 8px;
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+<h1>IASSO</h1>
+<div class= "dashboard">
+    <h2>Dashboard</h2>
+    <div class="dashboard-buttons">
+        <button>New Applications</button>
+        <button>Settings</button>
+    </div>
+</div>
+<div class="dashboard-cards">
+        <div class="card">
+            <h3>New Emails</h3>
+            <p>Check to see new opportunities!</p>
+        </div>
+
+        <div class="card">
+            <h3>Applied</h3>
+            <p>Check on your applications!</p>
+        </div>
+
+        <div class="card">
+            <h3>Archived</h3>
+            <p>Revist your archived email!</p>
+        </div>
+    </div>
+</body>
+</html>
