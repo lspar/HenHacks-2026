@@ -1,5 +1,11 @@
 from flask import Flask, render_template, session, redirect, url_for
 from google_auth_oauthlib.flow import InstalledAppFlow
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+cred = credentials.Certificate("firebase_credentials.json")
+firebase_admin.initialize_app(cred)
+db = firestore.client()
 
 app = Flask(__name__)
 app.secret_key = "replace_with_a_random_secret"
