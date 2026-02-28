@@ -1,11 +1,21 @@
+
+
 from flask import Flask, render_template, session, redirect, url_for
 from google_auth_oauthlib.flow import InstalledAppFlow
+import os
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-cred = credentials.Certificate("serviceAccountKey.json")
-firebase_admin.initialize_app(cred)
-db = firestore.client()
+db = None
+
+if os.path.exists("serviceAccountKey.json"):
+    cred = credentials.Certificate("serviceAccountKey.json")
+    firebase_admin.initialize_app(cred)
+    db = firestore.client()
+else:
+    print("Warning: serviceAccountKey.json not found. Firestore features will be disabled.")
+
+
 
 app = Flask(__name__)
 app.secret_key = "replace_with_a_random_secret"
