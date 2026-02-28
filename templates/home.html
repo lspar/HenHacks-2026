@@ -2,9 +2,15 @@
 <html>
 <head>
     <title>IASSO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <style>
         body {
             text-align: center;
+            background-color: #BDD5EA;
+        }
+        .IASSO {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 60px;
         }
         .box {
             border: 2px solid gray;     /* adds a border */
@@ -13,26 +19,36 @@
             margin: 50px auto;          /* centers box horizontally */
             border-radius: 10px;        /* optional: rounded corners */
             text-align: center;         /* centers text inside box */
-            background-color: #f9f9f9; /* optional: light background */
+            background-color: #D0DEF1; 
         }
+         .button{
+            padding: 15px 30px;  /* vertical & horizontal padding */
+            font-size: 20px;     /* text size */
+            border-radius: 8px;  /* optional: rounded corners */
+            cursor: pointer;
+            background-color: #D0DEF1;
+   
+        }
+
 </style>
     </style>
 </head>
 <body>
 
-<h1>IASSO</h1>
-<h2>Homepage</h2>
+<h1 class ="IASSO">IASSO</h1>
+<h2 style= "font-family: 'Montserrat'">HOMEPAGE</h2>
 <div class= "box">
 <h3> About </h3>
 <p> Developers: Lindsey Spar, Madeleine Lorentz, and Brady Tice<br>
-    IASSO is an web application designed to help students keep track of internship oppurtunties in their emails
-    and manange their applications.
+    IASSO is an web application designed to help students keep track of internship opportunties in their emails
+    and manage their applications.
 </p>
 </div>
 
+<p> To get started, please sign in with your Gmail Account</p>
 
 <a href="/login">
-    <button>Sign in with Gmail</button>
+    <button class="button">Sign in with Gmail</button>
 </a>
 
 
