@@ -63,17 +63,20 @@ def set_up():
 def check_login():
     username = request.form.get("username")
     password = request.form.get("password")
-    if username in db.collection("users"):
-        doc = db.collection("users").document(username).get()
-        user_data = doc.to_dict()
-        if user_data["password"] == check_password_hash(password):
-            dashboard()
+
+    user = db.collection("users").where("username", "==", username).get()
+    if len(user) != 0:
+        
+        user_data = user[0].to_dict()
+        if check_password_hash(user_data["password"], password):
+            session["username"] = username
+            return redirect("/dashboard")
         else:
             error = "Wrong Password"
-            home_page()
+            return redirect("/")
     else:
         error = "Create an account first"
-        home_page()
+        return redirect("/")
 
 
 # Google login
