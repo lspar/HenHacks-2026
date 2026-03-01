@@ -7,22 +7,21 @@
         body {
             text-align: center;
             background-color: #BDD5EA;
+            font-family: 'Montserrat', sans-serif;
         }
         .IASSO {
-            font-family: 'Montserrat', sans-serif;
             font-size: 60px;
         }
         .dashboard {
-            border: 2px solid gray;     /* adds a border */
-            padding: 10px;              /* space inside the box */
-            width: 800px;               /* box width */
-            margin: 50px auto;          /* centers box horizontally */
-            border-radius: 10px;        /* optional: rounded corners */
-            text-align: center;         /* centers text inside box */
-            background-color: #D0DEF1; /* optional: light background */
+            border: 2px solid gray;     
+            padding: 10px;              
+            width: 800px;               
+            margin: 50px auto;          
+            border-radius: 10px;        
+            text-align: center;         
+            background-color: #D0DEF1; 
         }
         .dashboard-title {
-            font-family: 'Montserrat', sans-serif;
             font-size: 40px;
             margin-bottom: 20px;
         }
@@ -31,7 +30,20 @@
             justify-content: center;
             gap: 20px;
         }
-         .dashboard-cards {
+        .dashboard-buttons a {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            background-color: #4A6FA5;
+            color: white;
+            cursor: pointer;
+        }
+        .dashboard-buttons a:hover {
+            background-color: #3a5a87;
+        }
+        .dashboard-cards {
             display: flex;
             justify-content: center;
             gap: 20px;
@@ -43,40 +55,39 @@
             padding: 20px;
             width: 300px;
             border-radius: 8px;
-            background-color: #D0DEF1
+            background-color: #D0DEF1;
         }
     </style>
 </head>
 <body>
 
 <h1 class="IASSO">IASSO</h1>
-<div class= "dashboard">
+<div class="dashboard">
     <h2 class="dashboard-title">Dashboard</h2>
     <div class="dashboard-buttons">
-        <a href="/new-app">
-            <button>NewApplications</button>
-        </a>
-        <a href="/settings">
-            <button>Settings</button>
-        </a>
+        <a href="/new-app">New Applications</a>
+        <a href="/settings">Settings</a>
     </div>
 </div>
+
 <div class="dashboard-cards">
-        <div class="card">
-            <h3>New Emails</h3>
-            <p>Check to see new opportunities!</p>
-        </div>
-
-        <div class="card">
-            <h3>Applied</h3>
-            <p>Check on your applications!</p>
-        </div>
-
-        <div class="card">
-            <h3>Archived</h3>
-            <p>Revist your archived email!</p>
-        </div>
+    <div class="card">
+        <h3>New Emails</h3>
+        <p>Check to see new opportunities!</p>
     </div>
+
+    <div class="card">
+        <h3>Applied</h3>
+        <p>Check on your applications!</p>
+    </div>
+
+    <div class="card">
+        <h3>Archived</h3>
+        <p>Revisit your archived email!</p>
+    </div>
+</div>
+
 </body>
 </html>
+
 

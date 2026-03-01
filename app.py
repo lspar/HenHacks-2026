@@ -28,6 +28,13 @@ def home_page():
 def dashboard():
     return render_template("dashboard.html")
 
+@app.route("/new-app")
+def new_app():
+    return render_template("new.html")
+
+@app.route("/settings")
+def settings():
+    return render_template("settings.html")
 # Google login
 @app.route("/login")
 def login():
@@ -38,8 +45,9 @@ def login():
    credentials = flow.run_local_server(port=5002)
    # save their email in the session
    session['google_email'] = credentials.id_token['email']
-   return redirect(url_for("home_page"))
+   return redirect(url_for("/dashboard"))
 
 if __name__ == "__main__":
-   app.run(port=5001, debug=True)
+   app.run(port=5002, debug=True)
+
 
