@@ -1,7 +1,8 @@
 
 
-from flask import Flask, render_template, session, redirect, url_for
+from flask import Flask, render_template, session, redirect, url_for, request
 from google_auth_oauthlib.flow import InstalledAppFlow
+from werkzeug.security import generate_password_hash
 import os
 import firebase_admin
 from firebase_admin import credentials, firestore
@@ -22,6 +23,21 @@ app.secret_key = "replace_with_a_random_secret"
 def home_page():
     user_email = session.get("google_email")
     return render_template("home.html", user_email=user_email)
+
+@app.route("/create-account", methods=["POST"])
+def create_account():
+
+    username = request.form.get("username")
+    password = request.form.get("password")
+
+    hashed_password = generate_password_hash(password)
+
+    db.collection("users").add({
+        "username": username,
+        "password": hashed_password
+    })
+
+    return redirect(url_for("home_page"))
     
 
 @app.route("/dashboard")
@@ -39,6 +55,8 @@ def settings():
 @app.route("/set-up")
 def set_up():
     return render_template("set-up.html")
+
+
 # Google login
 @app.route("/login")
 def login():
