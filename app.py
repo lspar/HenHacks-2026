@@ -15,8 +15,6 @@ if os.path.exists("serviceAccountKey.json"):
 else:
     print("Warning: serviceAccountKey.json not found. Firestore features will be disabled.")
 
-
-
 app = Flask(__name__)
 app.secret_key = "replace_with_a_random_secret"
 
@@ -30,7 +28,6 @@ def home_page():
 def dashboard():
     return render_template("dashboard.html")
 
-
 # Google login
 @app.route("/login")
 def login():
@@ -38,20 +35,11 @@ def login():
        'credentials.json',
        scopes=['https://www.googleapis.com/auth/userinfo.email']
    )
-   credentials = flow.run_local_server(port=0)
+   credentials = flow.run_local_server(port=5002)
    # save their email in the session
    session['google_email'] = credentials.id_token['email']
    return redirect(url_for("home_page"))
 
-
 if __name__ == "__main__":
-   app.run(port=5000, debug=True)
-
-@app.route("/new-app")
-def new_app():
-    return render_template("new.html")
-
-@app.route("/settings")
-def settings():
-    return render_template("settings.html")
+   app.run(port=5001, debug=True)
 
