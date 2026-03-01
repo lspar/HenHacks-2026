@@ -29,9 +29,9 @@ def filter_emails():
 
     for keyword in keywords:
         if keyword in email:
-            db.collection("users").document(username).collection("email").document("email").set({
-                  "email":email
-            })
+            db.collection("users").document(username).collection("email").add({
+                "email": email
+        })
     return redirect("/dashboard")
 
 
@@ -75,32 +75,19 @@ def dashboard():
 
     username = session["username"]
 
-    emails1 = db.collection("users").document(username).collection("email").document("email").get()
-
     information = ""
-    if emails1.exists:
-        email_data = emails1.to_dict()
-        for k in email_data:
-            information = information + k
 
+    try:
+        email_docs = db.collection("users").document(username).collection("email").stream()
 
+        for doc in email_docs:
+            data = doc.to_dict()
+            information += data.get("email", "") + "\n\n"
 
-    emails = []
-    if db is not None:
-        # Query Firestore for emails belonging to the logged-in user
-        try:
-            email_docs = db.collection("emails").where("user", "==", username).order_by("timestamp", direction=firestore.Query.DESCENDING).limit(20).stream()
-            for doc in email_docs:
-                data = doc.to_dict()
-                emails.append({
-                    "subject": data.get("subject", "(No Subject)"),
-                    "from": data.get("from", "(Unknown Sender)")
-                })
-        except Exception as e:
-            print(f"Error fetching emails from database: {e}")
-            emails = []
+    except Exception as e:
+        print("Error fetching emails:", e)
 
-    return render_template("dashboard.html", username=username, emails=emails, information = information)
+    return render_template("dashboard.html", username=username, information=information)
 
 @app.route("/new-app")
 def new_app():

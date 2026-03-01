@@ -9,7 +9,7 @@
             background-color: #BDD5EA;
             font-family: 'Montserrat', sans-serif;
         }
-        .IASSO {
+        .IASO {
             font-size: 60px;
         }
         .dashboard {
@@ -61,7 +61,7 @@
 </head>
 <body>
 
-<h1 class="IASSO">IASSO</h1>
+<h1 class="IASO">IASO</h1>
 <div class="dashboard">
     <h2 class="dashboard-title">Dashboard</h2>
     <h3>Welcome {{ session.get("username") }}!</h3>
@@ -75,17 +75,12 @@
 <div class="dashboard-cards">
     <div class="card">
         <h3>New Emails</h3>
-        <p> {{ information.from }} </p>
-        {% if emails %}
-        {% for email in emails %}
-        <div class="box">
-            <h3>{{ email.subject }}</h3>
-            <p><b>From:</b> {{ email.from }}</p>
-        </div>
-        {% endfor %}
+        <p>Check out your new emails!</p>
+        {% if information %}
+        <p style="white-space: pre-wrap;">{{ information }}</p>
     {% else %}
-    <p>No emails found matching your keywords.</p>
-    {% endif %}-
+        <p>No emails found matching your keywords.</p>
+    {% endif %}
     </div>
 
     <div class="card">
