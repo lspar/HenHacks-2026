@@ -75,7 +75,7 @@
 <div class="dashboard-cards">
     <div class="card">
         <h3>New Emails</h3>
-        <p>Check to see new opportunities!</p>
+        <p> {{ information.from }} </p>
         {% if emails %}
         {% for email in emails %}
         <div class="box">
@@ -85,7 +85,7 @@
         {% endfor %}
     {% else %}
     <p>No emails found matching your keywords.</p>
-    {% endif %}
+    {% endif %}-
     </div>
 
     <div class="card">
