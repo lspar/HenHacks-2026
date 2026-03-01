@@ -1,0 +1,7 @@
+<h1>Filtered Emails</h1>
+<ul>
+    {% for email in emails %}
+        <li><strong>{{ email.subject }}</strong> from {{ email.from }}</li>
+    {% endfor %}
+</ul>
+<a href="{{ url_for('dashboard') }}">Back to Dashboard</a>

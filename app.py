@@ -1,11 +1,20 @@
 
 
 from flask import Flask, render_template, session, redirect, url_for, request
-from google_auth_oauthlib.flow import InstalledAppFlow
+from dotenv import load_dotenv
+import imaplib, email, os
 from werkzeug.security import generate_password_hash, check_password_hash
-import os
 import firebase_admin
 from firebase_admin import credentials, firestore
+
+load_dotenv()
+
+
+
+app = Flask(__name__)
+app.secret_key = "replace_with_a_random_secret"
+
+
 
 db = None
 
@@ -16,12 +25,52 @@ if os.path.exists("serviceAccountKey.json"):
 else:
     print("Warning: serviceAccountKey.json not found. Firestore features will be disabled.")
 
-app = Flask(__name__)
-app.secret_key = "replace_with_a_random_secret"
+
+def get_emails(filter_type=None, keywords=None):
+    import imaplib, email, os
+
+    mail = imaplib.IMAP4_SSL("imap.gmail.com")
+    mail.login(os.getenv("EMAIL_USER"), os.getenv("EMAIL_PASS"))
+    mail.select("inbox")
+
+    if filter_type == "unread":
+        status, data = mail.search(None, "UNSEEN")
+    else:
+        status, data = mail.search(None, "ALL")
+
+    email_ids = data[0].split()
+    messages = []
+
+    for i in email_ids[-20:]:  # last 20 emails
+        status, msg_data = mail.fetch(i, "(RFC822)")
+        raw_email = msg_data[0][1]
+        msg = email.message_from_bytes(raw_email)
+
+        subject = msg["subject"]
+        sender = msg["from"]
+
+        if keywords and subject:
+            subject_lower = subject.lower()
+            keyword_list = [k.strip().lower() for k in keywords.split(",")]
+            if not any(k in subject_lower for k in keyword_list):
+                continue  # skip emails that don't match
+
+        messages.append({"subject": subject, "from": sender})
+
+    mail.logout()
+    return messages
+
+@app.route("/check-emails")
+def check_emails():
+    keywords = "internship"  # you can make this dynamic later
+    filter_type = "unread"   # or "all"
+
+    emails = get_emails(filter_type=filter_type, keywords=keywords)
+    return render_template("emails.html", emails=emails)
 
 @app.route("/")
 def home_page():
-    user_email = session.get("google_email")
+    user_email = session.get("username")
     return render_template("home.html", user_email=user_email)
 
 @app.route("/create-account", methods=["POST"])
@@ -79,19 +128,6 @@ def check_login():
         return redirect("/")
 
 
-# Google login
-@app.route("/login")
-def login():
-   flow = InstalledAppFlow.from_client_secrets_file(
-       'credentials.json',
-       scopes=['https://www.googleapis.com/auth/userinfo.email']
-   )
-   credentials = flow.run_local_server(port=5002)
-   # save their email in the session
-   session['google_email'] = credentials.id_token['email']
-   return redirect(url_for("dashboard"))
 
-if __name__ == "__main__":
-   app.run(port=5002, debug=True)
 
 
