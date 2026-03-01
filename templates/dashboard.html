@@ -68,6 +68,7 @@
     <div class="dashboard-buttons">
         <a href="/new-app">New Applications</a>
         <a href="/settings">Settings</a>
+        <a href="/email">Email</a>
     </div>
 </div>
 
@@ -75,6 +76,16 @@
     <div class="card">
         <h3>New Emails</h3>
         <p>Check to see new opportunities!</p>
+        {% if emails %}
+        {% for email in emails %}
+        <div class="box">
+            <h3>{{ email.subject }}</h3>
+            <p><b>From:</b> {{ email.from }}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+    <p>No emails found matching your keywords.</p>
+    {% endif %}
     </div>
 
     <div class="card">

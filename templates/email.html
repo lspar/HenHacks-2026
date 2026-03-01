@@ -1,7 +1,54 @@
-<h1>Filtered Emails</h1>
-<ul>
-    {% for email in emails %}
-        <li><strong>{{ email.subject }}</strong> from {{ email.from }}</li>
-    {% endfor %}
-</ul>
-<a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IASSO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <style>
+        body {
+            text-align: center;
+            background-color: #BDD5EA;
+        }
+        .IASSO {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 60px;
+        }
+        .box {
+            border: 2px solid gray;     /* adds a border */
+            padding: 20px;              /* space inside the box */
+            width: 450px;               /* box width */
+            margin: 50px auto;          /* centers box horizontally */
+            border-radius: 10px;        /* optional: rounded corners */
+            text-align: center;         /* centers text inside box */
+            background-color: #D0DEF1;
+        }
+        button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            border: none;
+            background-color: #4A6FA5;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+
+<h1 class ="IASSO">IASSO</h1>
+<h2 style= "font-family: 'Montserrat'">EMAIL</h2>
+
+<form method="POST" action="/filter_emails">
+        <div class= "box">
+            <h3> Enter Your Email </h3>
+            <textarea rows="15" cols="50" name="email_content" placeholder="Enter email here"></textarea>
+            <button type="submit">Submit Email</button>
+        </div>
+        
+</form>
+
+</body>
+</html>

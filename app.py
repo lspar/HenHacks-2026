@@ -9,12 +9,8 @@ from firebase_admin import credentials, firestore
 
 load_dotenv()
 
-
-
 app = Flask(__name__)
 app.secret_key = "replace_with_a_random_secret"
-
-
 
 db = None
 
@@ -25,48 +21,29 @@ if os.path.exists("serviceAccountKey.json"):
 else:
     print("Warning: serviceAccountKey.json not found. Firestore features will be disabled.")
 
+@app.route("/filter_emails", methods=["POST"])
+def filter_emails():
+    email = request.form.get("email_content")
+    username = session.get("username")
+    keywords = ["internship","opportunity", "job", "application"]
 
-def get_emails(filter_type=None, keywords=None):
-    import imaplib, email, os
+    for keyword in keywords:
+        if keyword in email:
+            db.collection("users").document(username).collection("email").document("email").set({
+                  "email":email
+            })
+    return redirect("/dashboard")
 
-    mail = imaplib.IMAP4_SSL("imap.gmail.com")
-    mail.login(os.getenv("EMAIL_USER"), os.getenv("EMAIL_PASS"))
-    mail.select("inbox")
+def get_emails():
+    
 
-    if filter_type == "unread":
-        status, data = mail.search(None, "UNSEEN")
-    else:
-        status, data = mail.search(None, "ALL")
-
-    email_ids = data[0].split()
-    messages = []
-
-    for i in email_ids[-20:]:  # last 20 emails
-        status, msg_data = mail.fetch(i, "(RFC822)")
-        raw_email = msg_data[0][1]
-        msg = email.message_from_bytes(raw_email)
-
-        subject = msg["subject"]
-        sender = msg["from"]
-
-        if keywords and subject:
-            subject_lower = subject.lower()
-            keyword_list = [k.strip().lower() for k in keywords.split(",")]
-            if not any(k in subject_lower for k in keyword_list):
-                continue  # skip emails that don't match
-
-        messages.append({"subject": subject, "from": sender})
-
-    mail.logout()
-    return messages
-
-@app.route("/check-emails")
+"""@app.route("/check-emails")
 def check_emails():
     keywords = "internship"  # you can make this dynamic later
     filter_type = "unread"   # or "all"
 
     emails = get_emails(filter_type=filter_type, keywords=keywords)
-    return render_template("emails.html", emails=emails)
+    return render_template("emails.html", emails=emails)"""
 
 @app.route("/")
 def home_page():
@@ -93,8 +70,28 @@ def create_account():
     
 
 @app.route("/dashboard")
-def dashboard():
-    return render_template("dashboard.html")
+def dashboard(email):
+    if "username" not in session:
+        return redirect("/")
+
+    username = session["username"]
+
+    emails = []
+    if db is not None:
+        # Query Firestore for emails belonging to the logged-in user
+        try:
+            email_docs = db.collection("emails").where("user", "==", username).order_by("timestamp", direction=firestore.Query.DESCENDING).limit(20).stream()
+            for doc in email_docs:
+                data = doc.to_dict()
+                emails.append({
+                    "subject": data.get("subject", "(No Subject)"),
+                    "from": data.get("from", "(Unknown Sender)")
+                })
+        except Exception as e:
+            print(f"Error fetching emails from database: {e}")
+            emails = []
+
+    return render_template("dashboard.html", username=username, emails=emails)
 
 @app.route("/new-app")
 def new_app():
@@ -126,6 +123,11 @@ def check_login():
     else:
         error = "Create an account first"
         return redirect("/")
+    
+
+@app.route("/email")
+def email():
+    return render_template("email.html")
 
 
 
