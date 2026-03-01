@@ -35,7 +35,7 @@ def create_account():
 
     hashed_password = generate_password_hash(password)
 
-    db.collection("users").add({
+    db.collection("users").document(username).set({
         "username": username,
         "password": hashed_password
     })
