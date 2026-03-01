@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>IASSO</title>
+    <title>Create An Account</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <style>
         body {
@@ -65,24 +65,27 @@
 
 
 <h1 class ="IASSO">IASSO</h1>
-<h2 style= "font-family: 'Montserrat'">HOMEPAGE</h2>
-<div class= "box">
-<h3> About </h3>
-<p> Developers: Lindsey Spar, Madeleine Lorentz, and Brady Tice<br>
-    IASSO is an web application designed to help students keep track of internship opportunties in their emails
-    and manage their applications.
-</p>
-</div>
+<h2 style= "font-family: 'Montserrat'">CREATE AN ACCOUNT</h2>
 
-<div>
-    <p> To get started, please sign in or make an account</p>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username">
+<div class="box">
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password">
+    <form method="POST" action="/create-account">
+
+        <div class="input">
+            <label>Username:</label>
+            <input type="text" name="username" required>
+        </div>
+
+        <div class="input">
+            <label>Password:</label>
+            <input type="password" name="password" required>
+        </div>
+
+        <button type="submit">Create Account</button>
+
+    </form>
+
 </div>
-<a href="/set-up" class="button-link">Create an Account</a>
 
 </body>
 </html>

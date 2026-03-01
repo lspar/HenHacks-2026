@@ -35,6 +35,10 @@ def new_app():
 @app.route("/settings")
 def settings():
     return render_template("settings.html")
+
+@app.route("/set-up")
+def set_up():
+    return render_template("set-up.html")
 # Google login
 @app.route("/login")
 def login():
