@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template, session, redirect, url_for, request
 from google_auth_oauthlib.flow import InstalledAppFlow
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import firebase_admin
 from firebase_admin import credentials, firestore
@@ -58,6 +58,22 @@ def settings():
 @app.route("/set-up")
 def set_up():
     return render_template("set-up.html")
+
+@app.route("/check-login", methods=["POST"])
+def check_login():
+    username = request.form.get("username")
+    password = request.form.get("password")
+    if username in db.collection("users"):
+        doc = db.collection("users").document(username).get()
+        user_data = doc.to_dict()
+        if user_data["password"] == check_password_hash(password):
+            dashboard()
+        else:
+            error = "Wrong Password"
+            home_page()
+    else:
+        error = "Create an account first"
+        home_page()
 
 
 # Google login
