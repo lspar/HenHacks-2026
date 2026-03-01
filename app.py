@@ -27,6 +27,9 @@ def home_page():
 @app.route("/create-account", methods=["POST"])
 def create_account():
 
+    if db is None:
+        return "Database not Connected"
+    
     username = request.form.get("username")
     password = request.form.get("password")
 
@@ -67,7 +70,7 @@ def login():
    credentials = flow.run_local_server(port=5002)
    # save their email in the session
    session['google_email'] = credentials.id_token['email']
-   return redirect(url_for("/dashboard"))
+   return redirect(url_for("dashboard"))
 
 if __name__ == "__main__":
    app.run(port=5002, debug=True)
