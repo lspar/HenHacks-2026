@@ -34,8 +34,7 @@ def filter_emails():
             })
     return redirect("/dashboard")
 
-def get_emails():
-    
+
 
 """@app.route("/check-emails")
 def check_emails():
@@ -70,11 +69,21 @@ def create_account():
     
 
 @app.route("/dashboard")
-def dashboard(email):
+def dashboard():
     if "username" not in session:
         return redirect("/")
 
     username = session["username"]
+
+    emails1 = db.collection("users").document(username).collection("email").document("email").get()
+
+    information = ""
+    if emails1.exists:
+        email_data = emails1.to_dict()
+        for k in email_data:
+            information = information + k
+
+
 
     emails = []
     if db is not None:
@@ -91,7 +100,7 @@ def dashboard(email):
             print(f"Error fetching emails from database: {e}")
             emails = []
 
-    return render_template("dashboard.html", username=username, emails=emails)
+    return render_template("dashboard.html", username=username, emails=emails, information = information)
 
 @app.route("/new-app")
 def new_app():
